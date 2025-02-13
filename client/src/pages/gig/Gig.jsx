@@ -270,7 +270,7 @@ function Gig() {
                 )}
               </div>
             )}
-          {data.images && data.images.length > 0 ? (
+          {/* {data.images && data.images.length > 0 ? (
             <Slider slidesToShow={1} arrowsScroll={1} className="slider">
               {data.images.map((img, index) => (
                 <img key={index} src={img} alt="" />
@@ -278,7 +278,7 @@ function Gig() {
             </Slider>
           ) : (
             <p>No images available</p>
-          )}
+          )} */}
           <h2>About This Gig</h2>
             <p>{data.desc}</p>
             {isLoadingUser ? (
