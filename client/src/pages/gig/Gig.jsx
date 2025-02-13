@@ -188,7 +188,6 @@
 
 import React from "react";
 import "./Gig.scss";
-import { Slider } from "infinite-react-carousel/lib";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import newRequest from "../../utils/newRequest";
