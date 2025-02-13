@@ -33,14 +33,17 @@ const connectDB = async() => {
         console.log("Connected to MongoDB");
     } catch (error) {
         console.error("MongoDB Connection Error:", error);
-        process.exit(1); // Exit process with failure
+        process.exit(1);
     }
 };
 
-// CORS Configuration
+// Fix for Mongoose `strictQuery` Warning
+mongoose.set("strictQuery", false);
+
+// 🔹 Updated CORS Configuration
 const allowedOrigins = [
     "http://localhost:5173", // Dev Frontend
-    process.env.CLIENT_URL, // Production Frontend
+    process.env.CLIENT_URL || "https://skillbridge-62gn.onrender.com" // Production Frontend
 ];
 
 app.use(cors({
@@ -48,6 +51,7 @@ app.use(cors({
         if (!origin || allowedOrigins.includes(origin)) {
             callback(null, true);
         } else {
+            console.error(`ORS Blocked: ${origin}`);
             callback(new Error("Not allowed by CORS"));
         }
     },
