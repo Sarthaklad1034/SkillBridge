@@ -10,38 +10,54 @@ import reviewRoute from "./routes/review.route.js";
 import authRoute from "./routes/auth.route.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import path from 'path';
-import { fileURLToPath } from 'url';
+import path from "path";
+import { fileURLToPath } from "url";
 
+// Load environment variables
+dotenv.config();
+
+// Fix for __dirname in ES Modules
 const __filename = fileURLToPath(
     import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-dotenv.config();
-mongoose.set("strictQuery", true);
 
-const connect = async() => {
+// Connect to MongoDB
+const connectDB = async() => {
     try {
-        await mongoose.connect(process.env.MONGO);
-        console.log("Connected to mongoDB!");
+        await mongoose.connect(process.env.MONGO, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
+        console.log("Connected to MongoDB");
     } catch (error) {
-        console.log(error);
+        console.error("MongoDB Connection Error:", error);
+        process.exit(1); // Exit process with failure
     }
 };
 
-// Update CORS to handle both development and production
+// CORS Configuration
+const allowedOrigins = [
+    "http://localhost:5173", // Dev Frontend
+    process.env.CLIENT_URL, // Production Frontend
+];
+
 app.use(cors({
-    origin: process.env.NODE_ENV === 'production' ?
-        process.env.CLIENT_URL :
-        "http://localhost:5173",
-    credentials: true
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error("Not allowed by CORS"));
+        }
+    },
+    credentials: true,
 }));
 
 app.use(express.json());
 app.use(cookieParser());
 
-// API routes
+// API Routes
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
 app.use("/api/gigs", gigRoute);
@@ -51,27 +67,26 @@ app.use("/api/messages", messageRoute);
 app.use("/api/reviews", reviewRoute);
 
 // Serve static files in production
-if (process.env.NODE_ENV === 'production') {
-    // Serve static files from the React/Vite app
-    app.use(express.static(path.join(__dirname, '../client/dist')));
+if (process.env.NODE_ENV === "production") {
+    const clientDistPath = path.join(__dirname, "../client/dist");
+    app.use(express.static(clientDistPath));
 
-    // Handle React routing, return all requests to React app
-    app.get('*', (req, res) => {
-        res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+    app.get("*", (req, res) => {
+        res.sendFile(path.join(clientDistPath, "index.html"));
     });
 }
 
-// Error handling middleware
+// Error Handling Middleware
 app.use((err, req, res, next) => {
     const errorStatus = err.status || 500;
     const errorMessage = err.message || "Something went wrong!";
-
-    return res.status(errorStatus).send(errorMessage);
+    console.error("Error:", errorMessage);
+    return res.status(errorStatus).json({ success: false, message: errorMessage });
 });
 
-// Use PORT from environment variables for hosting platforms
+// Start Server
 const PORT = process.env.PORT || 8800;
-app.listen(PORT, () => {
-    connect();
-    console.log(`Backend server is running on port ${PORT}!`);
+app.listen(PORT, async() => {
+    await connectDB();
+    console.log(`Server is running on port ${PORT}`);
 });
