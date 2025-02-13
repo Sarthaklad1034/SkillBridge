@@ -1,0 +1,202 @@
+// .messages {
+//     display: flex;
+//     justify-content: center;
+//     .container {
+//         width: 1400px;
+//         padding: 50px 0px;
+//         .title {
+//             display: flex;
+//             justify-content: space-between;
+//             button {
+//                 background-color: #1dbf73;
+//                 color: white;
+//                 font-weight: 500;
+//                 border: none;
+//                 padding: 10px;
+//                 cursor: pointer;
+//             }
+//         }
+//         table {
+//             width: 100%;
+//             tr {
+//                 height: 100px;
+//                 th {
+//                     text-align: left;
+//                 }
+//                 td {
+//                     padding: 10px;
+//                     &:first-child {
+//                         font-weight: 500;
+//                     }
+//                     &:nth-child(2),
+//                     &:nth-child(3) {
+//                         color: gray;
+//                     }
+//                 }
+//                 button {
+//                     background-color: #1dbf73;
+//                     color: white;
+//                     padding: 10px;
+//                     border: none;
+//                     cursor: pointer;
+//                 }
+//                 &.active {
+//                     background-color: #1dbf730f;
+//                 }
+//             }
+//         }
+//     }
+// }
+.messages {
+    padding: 20px;
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        h1 {
+            margin-bottom: 20px;
+        }
+        .conversation-list {
+            .conversation-item {
+                display: flex;
+                align-items: center;
+                padding: 15px;
+                border-bottom: 1px solid #e0e0e0;
+                &.unread {
+                    background-color: #f0f8ff;
+                }
+                .conversation-link {
+                    display: flex;
+                    align-items: center;
+                    text-decoration: none;
+                    color: inherit;
+                    flex-grow: 1;
+                    .user-avatar {
+                        width: 50px;
+                        height: 50px;
+                        margin-right: 15px;
+                        img {
+                            width: 100%;
+                            height: 100%;
+                            border-radius: 50%;
+                            object-fit: cover;
+                        }
+                    }
+                    .conversation-details {
+                        flex-grow: 1;
+                        .user-info {
+                            display: flex;
+                            justify-content: space-between;
+                            margin-bottom: 5px;
+                            .username {
+                                font-weight: bold;
+                            }
+                            .timestamp {
+                                font-size: 0.8em;
+                                color: #888;
+                            }
+                        }
+                        .last-message {
+                            p {
+                                margin: 0;
+                                color: #555;
+                                font-size: 0.9em;
+                            }
+                        }
+                    }
+                }
+                .conversation-actions {
+                    .mark-read {
+                        background-color: #4CAF50;
+                        color: white;
+                        border: none;
+                        padding: 5px 10px;
+                        border-radius: 5px;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Messages.scss
+// Messages.scss
+// .messages {
+//     .container {
+//         width: 100%;
+//         max-width: 800px;
+//         margin: 0 auto;
+//         padding: 20px;
+//     }
+//     .title {
+//         margin-bottom: 20px;
+//     }
+//     .conversation-list {
+//         .conversation-item {
+//             display: flex;
+//             justify-content: space-between;
+//             align-items: center;
+//             padding: 15px;
+//             border-bottom: 1px solid #eee;
+//             transition: background-color 0.3s;
+//             &:hover {
+//                 background-color: #f9f9f9;
+//             }
+//             &.unread {
+//                 background-color: #e6f7ff;
+//             }
+//             .user-info {
+//                 display: flex;
+//                 align-items: center;
+//                 img {
+//                     width: 50px;
+//                     height: 50px;
+//                     border-radius: 50%;
+//                     object-fit: cover;
+//                     margin-right: 15px;
+//                 }
+//                 .user-details {
+//                     .username {
+//                         font-weight: bold;
+//                         margin-bottom: 5px;
+//                         display: block;
+//                     }
+//                     .last-message {
+//                         color: #777;
+//                         text-decoration: none;
+//                         &:hover {
+//                             text-decoration: underline;
+//                         }
+//                         strong {
+//                             color: #333;
+//                         }
+//                     }
+//                 }
+//             }
+//             .conversation-actions {
+//                 display: flex;
+//                 flex-direction: column;
+//                 align-items: flex-end;
+//                 .date {
+//                     font-size: 0.8em;
+//                     color: #999;
+//                     margin-bottom: 5px;
+//                 }
+//                 .mark-read,
+//                 .contact-button {
+//                     background-color: #1dbf73;
+//                     color: white;
+//                     border: none;
+//                     padding: 5px 10px;
+//                     border-radius: 4px;
+//                     cursor: pointer;
+//                     font-size: 0.8em;
+//                     margin-top: 5px;
+//                 }
+//                 .contact-button {
+//                     background-color: #0077b5;
+//                 }
+//             }
+//         }
+//     }
+// }
